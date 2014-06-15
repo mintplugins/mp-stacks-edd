@@ -1,0 +1,8 @@
+img.mp-stacks-edd {
+	border: 1px dashed #888;
+	background: #7f8c8d url("../../assets/images/mp-stacks-edd-icon-250.png") no-repeat scroll center center;
+	
+	width: 100%;
+	height: 50px;
+	background-size: 200px;
+}

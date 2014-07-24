@@ -33,5 +33,8 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 == Changelog ==
 
+= 1.0.0.1 = July 24, 2014
+* Use wp_query->queried_object instead of $post_id for downloads. This way we don’t need to use wp_query_reset.
+
 = 1.0.0.0 = June 15, 2014
 * Original release

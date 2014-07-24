@@ -77,9 +77,7 @@ add_action('init', 'mp_stacks_edd_show_insert_shortcode');
  */
 function mp_stacks_edd_shortcode($atts){
 	
-	wp_reset_query();
-	
-	global $post, $edd_options;
+	global $wp_query, $edd_options;
 	
 	$vars = shortcode_atts( array(
 		'button_color' => NULL,
@@ -91,25 +89,25 @@ function mp_stacks_edd_shortcode($atts){
 	//Assemble the button CSS
 	$button_css = '<style scoped>';
 	
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $post->ID . '{';
+		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '{';
 		
 			$button_css .= 'background-color:' . $vars['button_color'] . '!important;';
 		
 		$button_css .= '}';
 		
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $post->ID . ' .edd-add-to-cart-label{';
+		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' .edd-add-to-cart-label{';
 			
 			$button_css .= 'color:' . $vars['button_text_color'] . '!important;';
 			
 		$button_css .= '}';
 		
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $post->ID . ':hover{';
+		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover{';
 		
 			$button_css .= 'background-color:' . $vars['button_hover_color'] . '!important;';
 		
 		$button_css .= '}';
 		
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $post->ID . ':hover .edd-add-to-cart-label{';
+		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover .edd-add-to-cart-label{';
 		
 			$button_css .= 'color:' . $vars['button_hover_text_color'] . '!important;';
 		
@@ -118,8 +116,8 @@ function mp_stacks_edd_shortcode($atts){
 	$button_css .= '</style>';
 
 	//Assemble the array to get the buy link
-	$atts['class'] = 'mp_stacks_edd_purchase_link_' . $post->ID;
-	$atts['download_id'] = $post->ID;
+	$atts['class'] = 'mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id;
+	$atts['download_id'] = $wp_query->queried_object_id;
 	
 	//Make sure this is actually a download
 	$download = edd_get_download( $atts['download_id'] );

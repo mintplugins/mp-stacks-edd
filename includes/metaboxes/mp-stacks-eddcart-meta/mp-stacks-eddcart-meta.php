@@ -126,4 +126,4 @@ function mp_stacks_edd_create_meta_box(){
 	global $mp_stacks_edd_meta_box;
 	$mp_stacks_edd_meta_box = new MP_CORE_Metabox($mp_stacks_edd_add_meta_box, $mp_stacks_edd_items_array);
 }
-add_action('widgets_init', 'mp_stacks_edd_create_meta_box');
+add_action('mp_brick_metabox', 'mp_stacks_edd_create_meta_box');

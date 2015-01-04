@@ -81,6 +81,7 @@ function mp_stacks_edd_shortcode($atts){
 	
 	$vars = shortcode_atts( array(
 		'button_color' => NULL,
+		'button_text' => __( 'Buy Now', 'mp_stacks_edd' ),
 		'button_text_color' => NULL,
 		'button_hover_color' => NULL,
 		'button_hover_text_color' => NULL
@@ -121,9 +122,16 @@ function mp_stacks_edd_shortcode($atts){
 	
 	//Make sure this is actually a download
 	$download = edd_get_download( $atts['download_id'] );
+	
+	$button_text = !empty( $vars['button_text'] ) ? edd_price( $wp_query->queried_object_id, false ) . ' - ' . $vars['button_text'] : edd_price( $wp_query->queried_object_id, false );
 
 	if ( $download ) {
-		return edd_get_purchase_link( $atts ) . $button_css;
+		return '<a href="' . edd_get_checkout_uri() . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
+		<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
+		<i class="edd-icon-spinner edd-icon-spin"></i>
+		</span></a>
+		<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>' . $button_css;
+		
 	}
 	
 }

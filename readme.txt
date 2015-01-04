@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: page, builder, stacks, bricks
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.0.0.1
+Stable tag: 1.0.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,6 +32,9 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.2 = July 24, 2014
+* Now we use a straight-up button instead of the EDD form.
 
 = 1.0.0.1 = July 24, 2014
 * Use wp_query->queried_object instead of $post_id for downloads. This way we don’t need to use wp_query_reset.

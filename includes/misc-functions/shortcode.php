@@ -126,11 +126,58 @@ function mp_stacks_edd_shortcode($atts){
 	$button_text = !empty( $vars['button_text'] ) ? edd_price( $wp_query->queried_object_id, false ) . ' - ' . $vars['button_text'] : edd_price( $wp_query->queried_object_id, false );
 
 	if ( $download ) {
-		return '<a href="' . edd_get_checkout_uri() . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
-		<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
-		<i class="edd-icon-spinner edd-icon-spin"></i>
-		</span></a>
-		<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>' . $button_css;
+		
+		//If the MP EDD All Access plugin exists, check if the user has all access here
+		if ( function_exists( 'mp_edd_all_access_textdomain' ) ){
+			
+			//Check if this user has all access priveleges
+			$all_access = mp_all_access_check();
+			
+			//If the user does NOT have all access
+			if ( !$all_access ){
+				return '<a href="' . edd_get_checkout_uri() . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
+			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
+			<i class="edd-icon-spinner edd-icon-spin"></i>
+			</span></a>
+			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>' . $button_css;
+			}
+			//If this user DOES have all access
+			else{
+				
+				//Get price
+				$price = get_post_meta( $wp_query->queried_object_id, 'edd_price', true );
+				
+				$exluded_download_ids = mp_core_get_option( 'mp_edd_all_access_settings_general',  'mp_all_access_download_exclude' );
+				$exluded_download_ids = explode(',', preg_replace('/\s+/', '', $exluded_download_ids) );
+				
+				//If this product is excluded from all access
+				if ( in_array( $wp_query->queried_object_id, $exluded_download_ids ) ){
+					//Return the normal button
+					return $purchase_form;	
+				}
+				//If this post is included in All Access
+				else{
+					
+					//Get deliverable file
+					$deliverable_file = get_post_meta( $wp_query->queried_object_id, 'edd_download_files', true );
+					
+					//return a button that links to the deliverable in a new window
+					return '<a class="button edd-free-download-btn" target="_blank" href="' . add_query_arg( array( 'mp_all_access_download' => $wp_query->queried_object_id ),  get_bloginfo( 'wpurl' ) ) . '">' . __( 'Download', 'mp_edd_all_access' ) . '</a>';	
+				}
+				
+			}
+			
+		}
+		//If the MP EDD All Access plugin is not activated/installed
+		else{
+		 	
+			//Give the user the normal "Buy" Button.
+			return '<a href="' . edd_get_checkout_uri() . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
+			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
+			<i class="edd-icon-spinner edd-icon-spin"></i>
+			</span></a>
+			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>' . $button_css;
+		}
 		
 	}
 	

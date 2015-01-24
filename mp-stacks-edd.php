@@ -3,7 +3,7 @@
 Plugin Name: MP Stacks + Edd
 Plugin URI: http://mintplugins.com
 Description: Shortcode which dynamically shows a download "Buy" link using the parent download's post id. This way, the exact same shortcode can be used for every download.
-Version: 1.0.0.2
+Version: 1.0.0.3
 Author: Mint Plugins
 Author URI: http://mintplugins.com
 Text Domain: mp_stacks_edd
@@ -34,7 +34,7 @@ License: GPL2
 */
 // Plugin version
 if( !defined( 'MP_STACKS_EDD_VERSION' ) )
-	define( 'MP_STACKS_EDD_VERSION', '1.0.0.2' );
+	define( 'MP_STACKS_EDD_VERSION', '1.0.0.3' );
 
 // Plugin Folder URL
 if( !defined( 'MP_STACKS_EDD_PLUGIN_URL' ) )

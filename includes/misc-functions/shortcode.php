@@ -135,7 +135,7 @@ function mp_stacks_edd_shortcode($atts){
 			
 			//If the user does NOT have all access
 			if ( !$all_access ){
-				return '<a href="' . edd_get_checkout_uri() . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
+				return '<a href="' . edd_get_checkout_uri() . '?edd_action=add_to_cart&download_id=' . $wp_query->queried_object_id . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
 			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
 			<i class="edd-icon-spinner edd-icon-spin"></i>
 			</span></a>

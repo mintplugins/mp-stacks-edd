@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: page, builder, stacks, bricks
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.0.0.3
+Stable tag: 1.0.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 == Changelog ==
 
 Include All Access buttons ability
+
+= 1.0.0.4 = Feburuary 2, 2015
+* Change Plugin Utility from EDDCart to just EDD
+* Make download link work if no edd ajax enabled
 
 = 1.0.0.3 = January 24, 2015
 * Include All Access buttons ability.

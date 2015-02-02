@@ -25,14 +25,14 @@ if (!function_exists('mp_stacks_edd_plugin_check')){
 		
 		$add_plugins = array(
 			array(
-				'plugin_name' => 'MP Stacks + EddCart',
-				'plugin_message' => __('You require the MP Stacks + EddCart plugin. Install it here.', 'mp_stacks_edd'),
+				'plugin_name' => 'MP Stacks + Edd',
+				'plugin_message' => __('You require the MP Stacks + Edd plugin. Install it here.', 'mp_stacks_edd'),
 				'plugin_filename' => 'mp-stacks-edd.php',
 				'plugin_download_link' => 'http://mintplugins.com/repo/mp-stacks-edd/?downloadfile=true',
 				'plugin_api_url' => 'https://mintplugins.com/',
-				'plugin_info_link' => 'http://mintplugins.com/plugins/mp-stacks',
+				'plugin_info_link' => 'http://mintplugins.com/plugins/mp-stacks-edd',
 				'plugin_group_install' => true,
-				'plugin_licensed' => true,
+				'plugin_licensed' => false,
 				'plugin_licensed_parent_name' => 'Change me to the name of the Parent Plugin',
 				'plugin_required' => true,
 				'plugin_wp_repo' => false,

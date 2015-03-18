@@ -22,6 +22,7 @@ function mp_stacks_edd_show_insert_shortcode(){
 		'shortcode_title' => __('Download in Brick', 'mp_stacks'),
 		'shortcode_description' => __( 'Use the form below to insert a download into a brick\'s text area:', 'mp_stacks' ),
 		'shortcode_icon_spot' => true,
+		'shortcode_icon_dashicon_class' => 'dashicons-download', //Grab this from https://developer.wordpress.org/resource/dashicons/#info
 		'shortcode_options' => array(
 			array(
 				'option_id' => 'button_text',

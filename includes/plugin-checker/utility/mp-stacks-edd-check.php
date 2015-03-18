@@ -1,10 +1,10 @@
 <?php
 /**
- * This file contains a function which checks if the MP Stacks + EddCart plugin is installed.
+ * This file contains a function which checks if the MP Stacks + Edd plugin is installed.
  *
  * @since 1.0.0
  *
- * @package    MP Core + EddCart
+ * @package    MP Stacks + Edd
  * @subpackage Functions
  *
  * @copyright  Copyright (c) 2014, Mint Plugins
@@ -13,7 +13,7 @@
  */
  
 /**
-* Check to make sure the MP Stacks + EddCart Plugin is installed.
+* Check to make sure the MP Stacks + Edd Plugin is installed.
 *
 * @since    1.0.0
 * @link     http://mintplugins.com/doc/plugin-checker-class/

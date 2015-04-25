@@ -89,33 +89,34 @@ function mp_stacks_edd_shortcode($atts){
 	), $atts );
 	
 	//Assemble the button CSS
-	$button_css = '<style scoped>';
+	global $mp_stacks_edd_footer_css;
+	$mp_stacks_edd_footer_css .= '<style scoped>';
 	
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '{';
+		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '{';
 		
-			$button_css .= 'background-color:' . $vars['button_color'] . '!important;';
+			$mp_stacks_edd_footer_css .= 'background-color:' . $vars['button_color'] . '!important;';
 		
-		$button_css .= '}';
+		$mp_stacks_edd_footer_css .= '}';
 		
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' .edd-add-to-cart-label{';
+		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' .edd-add-to-cart-label{';
 			
-			$button_css .= 'color:' . $vars['button_text_color'] . '!important;';
+			$mp_stacks_edd_footer_css .= 'color:' . $vars['button_text_color'] . '!important;';
 			
-		$button_css .= '}';
+		$mp_stacks_edd_footer_css .= '}';
 		
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover{';
+		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover{';
 		
-			$button_css .= 'background-color:' . $vars['button_hover_color'] . '!important;';
+			$mp_stacks_edd_footer_css .= 'background-color:' . $vars['button_hover_color'] . '!important;';
 		
-		$button_css .= '}';
+		$mp_stacks_edd_footer_css .= '}';
 		
-		$button_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover .edd-add-to-cart-label{';
+		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover .edd-add-to-cart-label{';
 		
-			$button_css .= 'color:' . $vars['button_hover_text_color'] . '!important;';
+			$mp_stacks_edd_footer_css .= 'color:' . $vars['button_hover_text_color'] . '!important;';
 		
-		$button_css .= '}';
+		$mp_stacks_edd_footer_css .= '}';
 	
-	$button_css .= '</style>';
+	$mp_stacks_edd_footer_css .= '</style>';
 
 	//Assemble the array to get the buy link
 	$atts['class'] = 'mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id;
@@ -140,7 +141,7 @@ function mp_stacks_edd_shortcode($atts){
 			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
 			<i class="edd-icon-spinner edd-icon-spin"></i>
 			</span></a>
-			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>' . $button_css;
+			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>';
 			}
 			//If this user DOES have all access
 			else{
@@ -163,7 +164,7 @@ function mp_stacks_edd_shortcode($atts){
 					$deliverable_file = get_post_meta( $wp_query->queried_object_id, 'edd_download_files', true );
 					
 					//return a button that links to the deliverable in a new window
-					return '<a class="button edd-free-download-btn" target="_blank" href="' . add_query_arg( array( 'mp_all_access_download' => $wp_query->queried_object_id ),  get_bloginfo( 'wpurl' ) ) . '">' . __( 'Download', 'mp_edd_all_access' ) . '</a>';	
+					return '<a class="button edd-free-download-btn" target="_blank" href="' . mp_core_add_query_arg( array( 'mp_all_access_download' => $wp_query->queried_object_id ),  get_bloginfo( 'wpurl' ) ) . '">' . __( 'Download', 'mp_edd_all_access' ) . '</a>';	
 				}
 				
 			}
@@ -177,10 +178,19 @@ function mp_stacks_edd_shortcode($atts){
 			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
 			<i class="edd-icon-spinner edd-icon-spin"></i>
 			</span></a>
-			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>' . $button_css;
+			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>';
 		}
 		
 	}
 	
 }
 add_shortcode( 'mp_stacks_edd_purchase_link', 'mp_stacks_edd_shortcode' );
+
+//Create the custom CSS for this button for colors
+function mp_stacks_edd_footer_css(){
+	
+	global $mp_stacks_edd_footer_css;
+	
+	echo $mp_stacks_edd_footer_css;
+}
+add_action( 'wp_footer', 'mp_stacks_edd_footer_css' );

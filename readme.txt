@@ -4,7 +4,7 @@ Donate link: http://mintplugins.com/
 Tags: page, builder, stacks, bricks
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.0.0.6
+Stable tag: 1.0.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,8 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 == Changelog ==
 
-Include All Access buttons ability
+= 1.0.0.7 = September 17, 2015
+* Shortcode now uses mp_core_shortcode_setup hook
 
 = 1.0.0.6 = April 25, 2015
 * Output custom button css in footer

@@ -15,7 +15,11 @@
 /**
  * Show "Insert Shortcode" above posts
  */
-function mp_stacks_edd_show_insert_shortcode(){
+function mp_stacks_edd_show_insert_shortcode( $post_type ){
+		
+	if ( $post_type != 'mp_brick' ){
+		return;	
+	}
 		
 	$args = array(
 		'shortcode_id' => 'mp_stacks_edd_purchase_link',
@@ -67,7 +71,7 @@ function mp_stacks_edd_show_insert_shortcode(){
 	
 	new MP_CORE_Shortcode_Insert($args);	
 }
-add_action('init', 'mp_stacks_edd_show_insert_shortcode');
+add_action('mp_core_shortcode_setup', 'mp_stacks_edd_show_insert_shortcode');
  
 /**
  * This function hooks to the brick output. If it is supposed to be a 'eddcart', then it will output the eddcart

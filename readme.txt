@@ -3,8 +3,8 @@ Contributors: johnstonphilip
 Donate link: http://mintplugins.com/
 Tags: page, builder, stacks, bricks
 Requires at least: 3.5
-Tested up to: 4.0
-Stable tag: 1.0.0.7
+Tested up to: 4.7
+Stable tag: 1.0.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ This section describes how to install the plugin and get it working.
 
 1. Upload the 'mp-stacks-edd folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Build Bricks under the “Stacks and Bricks” menu. 
+3. Build Bricks under the “Stacks and Bricks” menu.
 4. Publish your bricks into a “Stack”.
 5. Put Stacks on pages using the shortcode or the “Add Stack” button.
 
@@ -32,6 +32,9 @@ See full instructions at http://mintplugins.com/doc/mp-stacks
 
 
 == Changelog ==
+
+= 1.0.0.8 = March 3, 2017
+* Simplify EDD purchase form output
 
 = 1.0.0.7 = September 17, 2015
 * Shortcode now uses mp_core_shortcode_setup hook

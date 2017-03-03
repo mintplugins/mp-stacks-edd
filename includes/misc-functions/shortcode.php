@@ -96,25 +96,25 @@ function mp_stacks_edd_shortcode($atts){
 	global $mp_stacks_edd_footer_css;
 	$mp_stacks_edd_footer_css .= '<style scoped>';
 
-		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '{';
+		$mp_stacks_edd_footer_css .= '#edd_purchase_' . $wp_query->queried_object_id . ' .edd-add-to-cart{';
 
 			$mp_stacks_edd_footer_css .= 'background-color:' . $vars['button_color'] . '!important;';
 
 		$mp_stacks_edd_footer_css .= '}';
 
-		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' .edd-add-to-cart-label{';
+		$mp_stacks_edd_footer_css .= '#edd_purchase_' . $wp_query->queried_object_id . ' .edd-add-to-cart .edd-add-to-cart-label{';
 
 			$mp_stacks_edd_footer_css .= 'color:' . $vars['button_text_color'] . '!important;';
 
 		$mp_stacks_edd_footer_css .= '}';
 
-		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover{';
+		$mp_stacks_edd_footer_css .= '#edd_purchase_' . $wp_query->queried_object_id . ' .edd-add-to-cart:hover{';
 
 			$mp_stacks_edd_footer_css .= 'background-color:' . $vars['button_hover_color'] . '!important;';
 
 		$mp_stacks_edd_footer_css .= '}';
 
-		$mp_stacks_edd_footer_css .= '.mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ':hover .edd-add-to-cart-label{';
+		$mp_stacks_edd_footer_css .= '#edd_purchase_' . $wp_query->queried_object_id . ' .edd-add-to-cart:hover .edd-add-to-cart-label{';
 
 			$mp_stacks_edd_footer_css .= 'color:' . $vars['button_hover_text_color'] . '!important;';
 
@@ -131,59 +131,15 @@ function mp_stacks_edd_shortcode($atts){
 
 	$button_text = !empty( $vars['button_text'] ) ? edd_price( $wp_query->queried_object_id, false ) . ' - ' . $vars['button_text'] : edd_price( $wp_query->queried_object_id, false );
 
-	if ( $download ) {
+	$button_behavior = edd_get_download_button_behavior( $wp_query->queried_object_id );
 
-		//If the MP EDD All Access plugin exists, check if the user has all access here
-		if ( class_exists( 'EDD_All_Access' ) ){
+	$args = apply_filters( 'edd_purchase_link_defaults', array(
+		'download_id' => $wp_query->queried_object_id,
+		'direct'      => $button_behavior == 'direct' ? true : false,
+		'text' 		  => $vars['button_text']
+	) );
 
-			//Check if this user has all access priveleges
-			$all_access = edd_all_access_user_can_download();
-
-			//If the user does NOT have all access
-			if ( !$all_access['success'] ){
-				return '<a href="' . edd_get_checkout_uri() . '?edd_action=add_to_cart&download_id=' . $wp_query->queried_object_id . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
-			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
-			<i class="edd-icon-spinner edd-icon-spin"></i>
-			</span></a>
-			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>';
-			}
-			//If this user DOES have all access
-			else{
-
-				//Get price
-				$price = get_post_meta( $wp_query->queried_object_id, 'edd_price', true );
-
-				$exluded_download_ids = mp_core_get_option( 'mp_edd_all_access_settings_general',  'mp_all_access_download_exclude' );
-				$exluded_download_ids = explode(',', preg_replace('/\s+/', '', $exluded_download_ids) );
-
-				//If this product is excluded from all access
-				if ( in_array( $wp_query->queried_object_id, $exluded_download_ids ) ){
-					//Return the normal button
-					return $purchase_form;
-				}
-				//If this post is included in All Access
-				else{
-
-					//return a button that links to the deliverable in a new window
-					return '<a class="button edd-free-download-btn" target="_blank" href="' . esc_url( edd_all_access_product_download_url( $wp_query->queried_object_id ) ) . '">' . __( 'Download', 'mp_edd_all_access' ) . '</a>';
-				}
-
-			}
-
-		}
-		//If the MP EDD All Access plugin is not activated/installed
-		else{
-
-			//Give the user the normal "Buy" Button.
-			return '<a href="' . edd_get_checkout_uri() . '" class="edd-add-to-cart button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . ' edd-has-js" data-action="edd_add_to_cart" data-download-id="' . $wp_query->queried_object_id . '" data-variable-price="no" data-price-mode="single" data-edd-loading="">
-			<span class="edd-add-to-cart-label">' . $button_text . '</span> <span class="edd-loading" style="margin-left: 0px; margin-top: 0px;">
-			<i class="edd-icon-spinner edd-icon-spin"></i>
-			</span></a>
-			<a href="' . edd_get_checkout_uri() . '" class="edd_go_to_checkout button mp_stacks_edd_purchase_link_' . $wp_query->queried_object_id . '" style="display: none;">' . __( 'Checkout', 'mp_stacks_edd' ) . '</a>';
-		}
-
-	}
-
+	return edd_get_purchase_link( $args );
 }
 add_shortcode( 'mp_stacks_edd_purchase_link', 'mp_stacks_edd_shortcode' );
 
